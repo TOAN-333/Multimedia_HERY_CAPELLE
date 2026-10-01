@@ -9,7 +9,7 @@
 <body>
   <!-- dessin SVG créé et modifié par les scripts JS -->
   <svg xmlns="http://www.w3.org/2000/svg"
-        width="100"% viewbox="0 0 200 200"
+        width="100%" viewbox="0 0 200 200"
         id="dessin">
   </svg>
 
@@ -32,6 +32,14 @@
                     'stroke-width': radius/8
                 })
             }
+
+            turnOn(timeline, duration=0.1, position=">") {
+                timeline.to(this.led, {fill:"red", duration:duration}, position)
+            }
+
+            turnOff(timeline, duration=0.1, position=">") {
+                timeline.to(this.led, {fill:"gray", duration:duration}, position)
+            }
         }
         class LedRibbon {
             constructor(parent, {number, x, y, radius = 5, spacing=0} = {}) {
@@ -48,11 +56,17 @@
         // dessin SVG
         const svg = SVGelement.fromSelector("#dessin")
         // dessiner une led                                
-//        const led = new Led(svg, 50, 50, 16)
+        const led = new Led(svg, 50, 50, 16)
         
         // dessiner un ruban de leds
 //        const ribbon = new LedRibbon(svg, 8, 8, 8, 4, 10)
-        const ribbon = new LedRibbon(svg, {number: 16, x: 8, y: 8})
+//        const ribbon = new LedRibbon(svg, {number: 16, x: 8, y: 8})
+
+        // allumer la led puis l'éteindre, dans une timeline
+        const TLled = gsap.timeline()
+        led.turnOn(TLled, 1.0) // allumage en 1 seconde
+        led.turnOff(TLled, 0.5, ">+2") // extinction en 1/2 s après 2 secondes
+
   </script>
 </body>
 </html>
