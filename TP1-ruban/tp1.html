@@ -34,7 +34,7 @@
             }
         }
         class LedRibbon {
-            constructor(parent, number, x, y, radius, spacing=0) {
+            constructor(parent, {number, x, y, radius = 5, spacing=0} = {}) {
                 // liste des leds créées par ce ruban
                 this.leds = []
                 for (let index = 0; index < number; index++) {
@@ -47,11 +47,12 @@
 
         // dessin SVG
         const svg = SVGelement.fromSelector("#dessin")
-        // dessiner une led
+        // dessiner une led                                
 //        const led = new Led(svg, 50, 50, 16)
         
         // dessiner un ruban de leds
-        const ribbon = new LedRibbon(svg, 8, 8, 8, 4, 10)
+//        const ribbon = new LedRibbon(svg, 8, 8, 8, 4, 10)
+        const ribbon = new LedRibbon(svg, {number: 16, x: 8, y: 8})
   </script>
 </body>
 </html>
